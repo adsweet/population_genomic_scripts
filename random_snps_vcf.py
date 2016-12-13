@@ -13,25 +13,16 @@ from pprint import pprint
 locusdict=defaultdict(list)
 randict=defaultdict(list)
 with open(sys.argv[1],"r") as csvfile:
-	reader = csv.DictReader(csvfile)
+	reader = csv.reader(csvfile)
 	for row in reader:
-		locus = (row['V2'])
-		#print(locus)
+		locus = (row[0])
 		if locus in locusdict:
 			locusdict[locus] += 1
 		else:
 			locusdict[locus] = 1
-
-
-
-
-
 for key, value in locusdict.items():
-	#print(key,value)
 	number = random.randrange(0,value,1)
-	#print(key, number)
 	randict[key] = number
-
 with open(sys.argv[2],"w") as outfile:
 	writer = csv.writer(outfile)
 	with open(sys.argv[1],"r") as csvfile:
@@ -40,17 +31,10 @@ with open(sys.argv[2],"w") as outfile:
 		line = 1
 		for row in reader:
 			locus = (row[0])
-			#print(locus,line)
 			if locus == l1:
 				line += 1
 				if line == randict[locus]:
-					#print(row)
 					writer.writerow(row)
 			else:
 				l1 = locus
-				line = 1
-
-	
-	
-
- 
+				line = 1 
